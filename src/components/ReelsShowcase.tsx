@@ -5,7 +5,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { Play } from "lucide-react";
 
 const reels = [
-  { id: "REEL_001", views: "1.2M", src: "/reels/reel-1.mp4" },
+  { id: "REEL_001", src: "/reels/reel-1.mp4" },
   { id: "REEL_002", views: "850K", src: "/reels/reel-2.mp4" },
   { id: "REEL_003", views: "420K", src: "/reels/reel-3.mp4" },
   { id: "REEL_004", views: "310K", src: "/reels/reel-4.mp4" },
@@ -101,12 +101,6 @@ export default function ReelsShowcase() {
   const headOpacity = useTransform(scrollYProgress, [0, 0.7], [0, 1]);
   const headY = useTransform(scrollYProgress, [0, 0.7], [30, 0]);
 
-  // Horizontal auto-scroll driven by page scroll (desktop feel)
-  const { scrollYProgress: hScrollProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start end", "end start"],
-  });
-  const x = useTransform(hScrollProgress, [0, 1], ["0%", "-20%"]);
 
   return (
     <section
@@ -136,14 +130,13 @@ export default function ReelsShowcase() {
         ref={scrollRef}
         className="w-full overflow-x-auto no-scrollbar snap-x snap-mandatory pb-6"
       >
-        <motion.div
-          style={{ x }}
+        <div
           className="flex gap-4 w-max px-6 md:px-[max(1.5rem,calc((100vw-72rem)/2))]"
         >
           {reels.map((reel, index) => (
             <ReelCard key={reel.id} reel={reel} index={index} />
           ))}
-        </motion.div>
+        </div>
       </div>
 
       <p className="font-mono text-dust/30 text-xs text-center mt-4 px-6 tracking-widest">
