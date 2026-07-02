@@ -84,9 +84,9 @@ export default function Testimonials() {
                 </div>
 
                 <p className="font-serif text-ivory/90 text-lg sm:text-xl leading-relaxed mb-10 relative z-10">
-                  <span className="absolute -top-4 -left-4 text-5xl text-dust/20 font-serif leading-none select-none">"</span>
+                  <span className="absolute -top-4 -left-4 text-5xl text-dust/20 font-serif leading-none select-none">&quot;</span>
                   {item.quote}
-                  <span className="absolute -bottom-4 -right-2 text-5xl text-dust/20 font-serif leading-none select-none">"</span>
+                  <span className="absolute -bottom-4 -right-2 text-5xl text-dust/20 font-serif leading-none select-none">&quot;</span>
                 </p>
               </div>
 

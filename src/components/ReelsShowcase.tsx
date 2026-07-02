@@ -13,7 +13,7 @@ const reels = [
   { id: "REEL_006", views: "150K", src: "/reels/reel-6.mp4" },
 ];
 
-function ReelCard({ reel, index }: { reel: any; index: number }) {
+function ReelCard({ reel, index }: { reel: { id: string, views: string, src?: string }; index: number }) {
   const videoRef = useRef<HTMLVideoElement>(null);
 
   const handleMouseEnter = () => {

@@ -26,7 +26,7 @@ export default function Footer() {
               />
             </div>
             <p className="font-sans text-black text-sm leading-relaxed mb-6 max-w-xs">
-              Capturing life's most precious moments with cinematic elegance. Based in Bhopal, India — available all India and for destination shoots.
+              Capturing life&apos;s most precious moments with cinematic elegance. Based in Bhopal, India — available all India and for destination shoots.
             </p>
             <div className="font-mono text-black text-xs tracking-widest">
               EST. 2017 · @thefotocompany

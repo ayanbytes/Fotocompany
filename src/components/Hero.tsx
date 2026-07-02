@@ -130,8 +130,6 @@ export default function Hero() {
   const heroOp = useTransform(scrollYProgress, [0.86, 1.0], [1, 0]);
   const heroSc = useTransform(scrollYProgress, [0.86, 1.0], [1, 0.96]);
 
-  const fStops = ["f/1.2", "f/1.8", "f/2.8", "f/4.0", "f/5.6"];
-  const fStop = fStops[Math.min(Math.floor(scrollVal * fStops.length), fStops.length - 1)];
 
   return (
     <div ref={wrapperRef} style={{ height: "260vh" }}>
