@@ -1,8 +1,8 @@
 "use client";
 
-import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { Play } from "lucide-react";
+import { useRef, useState } from "react";
+import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
+import { Play, X } from "lucide-react";
 
 const reels = [
   { id: "REEL_001", src: "/reels/reel-1.mp4" },
@@ -13,7 +13,7 @@ const reels = [
   { id: "REEL_006", views: "150K", src: "/reels/reel-6.mp4" },
 ];
 
-function ReelCard({ reel, index }: { reel: { id: string, views: string, src?: string }; index: number }) {
+function ReelCard({ reel, index, onClick }: { reel: { id: string, views: string, src?: string }; index: number; onClick: () => void }) {
   const videoRef = useRef<HTMLVideoElement>(null);
 
   const handleInteractionStart = () => {
@@ -41,6 +41,7 @@ function ReelCard({ reel, index }: { reel: { id: string, views: string, src?: st
         whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.97 }}
         transition={{ type: "spring", stiffness: 400, damping: 25 }}
+        onClick={onClick}
         onMouseEnter={handleInteractionStart}
         onMouseLeave={handleInteractionEnd}
         onTouchStart={handleInteractionStart}
@@ -91,6 +92,7 @@ function ReelCard({ reel, index }: { reel: { id: string, views: string, src?: st
 }
 
 export default function ReelsShowcase() {
+  const [activeReel, setActiveReel] = useState<string | null>(null);
   const sectionRef = useRef<HTMLElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
 
@@ -134,7 +136,7 @@ export default function ReelsShowcase() {
           className="flex gap-4 w-max px-6 md:px-[max(1.5rem,calc((100vw-72rem)/2))]"
         >
           {reels.map((reel, index) => (
-            <ReelCard key={reel.id} reel={reel} index={index} />
+            <ReelCard key={reel.id} reel={reel} index={index} onClick={() => reel.src ? setActiveReel(reel.src) : null} />
           ))}
         </div>
       </div>
@@ -142,6 +144,40 @@ export default function ReelsShowcase() {
       <p className="font-mono text-dust/30 text-xs text-center mt-4 px-6 tracking-widest">
         {/*  */}
       </p>
+
+      {/* Fullscreen Video Modal */}
+      <AnimatePresence>
+        {activeReel && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 backdrop-blur-sm px-4"
+          >
+            <button
+              onClick={() => setActiveReel(null)}
+              className="absolute top-6 right-6 md:top-10 md:right-10 p-3 bg-white/10 rounded-full text-white hover:bg-white/20 transition-colors z-[110]"
+            >
+              <X className="w-6 h-6" />
+            </button>
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              transition={{ type: "spring", damping: 25, stiffness: 300 }}
+              className="relative w-full max-w-[400px] aspect-[9/16] bg-ink rounded-2xl overflow-hidden shadow-2xl"
+            >
+              <video
+                src={activeReel}
+                autoPlay
+                controls
+                playsInline
+                className="w-full h-full object-cover"
+              />
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }
