@@ -16,7 +16,18 @@ const reels = [
 function ReelCard({ reel, index, onClick }: { reel: { id: string, views?: string, src?: string }; index: number; onClick: () => void }) {
   const videoRef = useRef<HTMLVideoElement>(null);
 
+  const handleMouseEnter = () => {
+    if (typeof window !== "undefined" && window.matchMedia("(hover: hover)").matches && videoRef.current) {
+      videoRef.current.muted = false;
+      videoRef.current.play().catch(() => {});
+    }
+  };
 
+  const handleMouseLeave = () => {
+    if (videoRef.current) {
+      videoRef.current.muted = true;
+    }
+  };
 
   return (
     <motion.div
@@ -31,6 +42,8 @@ function ReelCard({ reel, index, onClick }: { reel: { id: string, views?: string
         whileTap={{ scale: 0.97 }}
         transition={{ type: "spring", stiffness: 400, damping: 25 }}
         onClick={onClick}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
         onContextMenu={(e) => e.preventDefault()}
         style={{ WebkitTouchCallout: "none", userSelect: "none" }}
         className="w-[220px] sm:w-[260px] h-[390px] sm:h-[460px] 
@@ -120,7 +133,7 @@ export default function ReelsShowcase() {
               reel={reel}
               index={index}
               onClick={() => {
-                if (typeof window !== "undefined" && window.innerWidth < 768 && reel.src) {
+                if (typeof window !== "undefined" && window.matchMedia("(hover: none)").matches && reel.src) {
                   setActiveReel(reel.src);
                 }
               }}
