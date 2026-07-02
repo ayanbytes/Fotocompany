@@ -75,12 +75,7 @@ function ReelCard({ reel, index, onClick }: { reel: { id: string, views?: string
           )}
         </div>
 
-        {/* View count */}
-        <div className="absolute bottom-4 left-4 z-20 flex items-center gap-2
-                      bg-ink/70 backdrop-blur px-3 py-1.5 rounded-full border border-white/5">
-          <Play className="text-ivory/70 w-3 h-3" />
-          <span className="font-mono text-[11px] text-ivory/70">{reel.views} Views</span>
-        </div>
+
 
         {/* Reel index */}
         <div className="absolute top-4 right-4 z-20 font-mono text-[10px] text-white/50 bg-ink/40 px-2 py-1 rounded-md backdrop-blur-sm">
