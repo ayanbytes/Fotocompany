@@ -33,7 +33,7 @@ export default function Portfolio() {
             style={{ x: headX, opacity: headOpacity }}
             className="font-serif text-[clamp(2.25rem,5vw,3.5rem)] text-ivory leading-tight"
           >
-            Contact Sheet
+            Potrait 
           </motion.h2>
           <motion.span
             style={{ opacity: headOpacity }}
