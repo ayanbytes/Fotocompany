@@ -162,11 +162,7 @@ export default function Hero() {
           backgroundSize: "72px 72px",
         }} />
 
-        {/* Drawing line */}
-        <motion.div
-          style={{ height: lineH, background: "rgba(255,255,255,0.15)" }}
-          className="absolute left-8 md:left-12 top-0 w-px z-10 origin-top"
-        />
+
 
         {/* ── Logo image ──────────────────────────────────────────
             Desktop (md+): pinned to the right half, large, full opacity

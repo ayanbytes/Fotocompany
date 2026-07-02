@@ -16,18 +16,7 @@ const reels = [
 function ReelCard({ reel, index, onClick }: { reel: { id: string, views?: string, src?: string }; index: number; onClick: () => void }) {
   const videoRef = useRef<HTMLVideoElement>(null);
 
-  const handleInteractionStart = () => {
-    if (videoRef.current) {
-      videoRef.current.muted = false;
-      videoRef.current.play().catch(() => { });
-    }
-  };
 
-  const handleInteractionEnd = () => {
-    if (videoRef.current) {
-      videoRef.current.muted = true;
-    }
-  };
 
   return (
     <motion.div
@@ -42,11 +31,6 @@ function ReelCard({ reel, index, onClick }: { reel: { id: string, views?: string
         whileTap={{ scale: 0.97 }}
         transition={{ type: "spring", stiffness: 400, damping: 25 }}
         onClick={onClick}
-        onMouseEnter={handleInteractionStart}
-        onMouseLeave={handleInteractionEnd}
-        onTouchStart={handleInteractionStart}
-        onTouchEnd={handleInteractionEnd}
-        onTouchCancel={handleInteractionEnd}
         onContextMenu={(e) => e.preventDefault()}
         style={{ WebkitTouchCallout: "none", userSelect: "none" }}
         className="w-[220px] sm:w-[260px] h-[390px] sm:h-[460px] 
@@ -131,7 +115,16 @@ export default function ReelsShowcase() {
           className="flex gap-4 w-max px-6 md:px-[max(1.5rem,calc((100vw-72rem)/2))]"
         >
           {reels.map((reel, index) => (
-            <ReelCard key={reel.id} reel={reel} index={index} onClick={() => reel.src ? setActiveReel(reel.src) : null} />
+            <ReelCard
+              key={reel.id}
+              reel={reel}
+              index={index}
+              onClick={() => {
+                if (typeof window !== "undefined" && window.innerWidth < 768 && reel.src) {
+                  setActiveReel(reel.src);
+                }
+              }}
+            />
           ))}
         </div>
       </div>
