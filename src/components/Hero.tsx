@@ -116,7 +116,7 @@ export default function Hero() {
   // ── Scroll gates ─────────────────────────────────────────────
   // "We Create Memories" — chars light up across scroll 0.04 → 0.48
   // Sub-copy + CTAs appear after heading is fully lit
-  const lineH = useTransform(scrollYProgress, [0.04, 0.70], ["0%", "100%"]);
+
   const subOpacity = useTransform(scrollYProgress, [0.48, 0.64], [0, 1]);
   const subY_raw = useTransform(scrollYProgress, [0.48, 0.64], [20, 0]);
   const subY = useSpring(subY_raw, { stiffness: 80, damping: 22 });
