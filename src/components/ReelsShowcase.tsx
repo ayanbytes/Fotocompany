@@ -2,7 +2,7 @@
 
 import { useRef, useState } from "react";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
-import { Play, X } from "lucide-react";
+import { X } from "lucide-react";
 
 const reels = [
   { id: "REEL_001", src: "/reels/reel-1.mp4" },
