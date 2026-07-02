@@ -52,7 +52,7 @@ export default function CTABand() {
           transition={{ delay: 0.2, duration: 0.7 }}
           className="font-sans text-ink/60 text-base md:text-lg mb-14 max-w-xl mx-auto leading-relaxed"
         >
-          Let's create something timeless. WhatsApp directly to discuss your wedding, pre-wedding, or brand project.
+          Let&apos;s create something timeless. WhatsApp directly to discuss your wedding, pre-wedding, or brand project.
         </motion.p>
 
         <motion.div

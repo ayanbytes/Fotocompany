@@ -100,7 +100,6 @@ function Marquee() {
 /* ─── Hero ────────────────────────────────────────────────────── */
 export default function Hero() {
   const [loaded, setLoaded] = useState(false);
-  const [scrollVal, setScrollVal] = useState(0);
   const wrapperRef = useRef<HTMLDivElement>(null);
 
   const { scrollYProgress } = useScroll({
@@ -113,7 +112,6 @@ export default function Hero() {
     return () => clearTimeout(t);
   }, []);
 
-  useEffect(() => scrollYProgress.on("change", setScrollVal), [scrollYProgress]);
 
   // ── Scroll gates ─────────────────────────────────────────────
   // "We Create Memories" — chars light up across scroll 0.04 → 0.48
