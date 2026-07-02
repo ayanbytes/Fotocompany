@@ -19,6 +19,7 @@ function ReelCard({ reel, index }: { reel: { id: string, views: string, src?: st
   const handleInteractionStart = () => {
     if (videoRef.current) {
       videoRef.current.muted = false;
+      videoRef.current.play().catch(() => {});
     }
   };
 
@@ -45,6 +46,8 @@ function ReelCard({ reel, index }: { reel: { id: string, views: string, src?: st
         onTouchStart={handleInteractionStart}
         onTouchEnd={handleInteractionEnd}
         onTouchCancel={handleInteractionEnd}
+        onContextMenu={(e) => e.preventDefault()}
+        style={{ WebkitTouchCallout: "none", userSelect: "none" }}
         className="w-[220px] sm:w-[260px] h-[390px] sm:h-[460px] 
                    bg-film border border-dust/10 relative group overflow-hidden cursor-pointer rounded-xl"
       >
