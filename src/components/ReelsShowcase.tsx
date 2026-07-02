@@ -16,17 +16,14 @@ const reels = [
 function ReelCard({ reel, index }: { reel: { id: string, views: string, src?: string }; index: number }) {
   const videoRef = useRef<HTMLVideoElement>(null);
 
-  const handleMouseEnter = () => {
+  const handleInteractionStart = () => {
     if (videoRef.current) {
       videoRef.current.muted = false;
-      videoRef.current.play().catch(() => { });
     }
   };
 
-  const handleMouseLeave = () => {
+  const handleInteractionEnd = () => {
     if (videoRef.current) {
-      videoRef.current.pause();
-      videoRef.current.currentTime = 0;
       videoRef.current.muted = true;
     }
   };
@@ -36,16 +33,23 @@ function ReelCard({ reel, index }: { reel: { id: string, views: string, src?: st
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-40px" }}
-      transition={{ duration: 0.55, delay: index * 0.08 }}
-      whileHover={{ scale: 1.03 }}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-      className="w-[220px] sm:w-[260px] h-[390px] sm:h-[460px] shrink-0 snap-center
-                 bg-film border border-dust/10 relative group overflow-hidden cursor-pointer
-                 will-change-transform"
+      transition={{ duration: 0.7, delay: index * 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
+      className="shrink-0 snap-center will-change-transform"
     >
+      <motion.div
+        whileHover={{ scale: 1.02 }}
+        whileTap={{ scale: 0.97 }}
+        transition={{ type: "spring", stiffness: 400, damping: 25 }}
+        onMouseEnter={handleInteractionStart}
+        onMouseLeave={handleInteractionEnd}
+        onTouchStart={handleInteractionStart}
+        onTouchEnd={handleInteractionEnd}
+        onTouchCancel={handleInteractionEnd}
+        className="w-[220px] sm:w-[260px] h-[390px] sm:h-[460px] 
+                   bg-film border border-dust/10 relative group overflow-hidden cursor-pointer rounded-xl"
+      >
       {/* Gradient vignette */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-ink/80 z-10 pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-ink/90 z-10 pointer-events-none transition-opacity duration-500 group-hover:opacity-70" />
 
       {/* Video or Placeholder */}
       <div className="absolute inset-0 z-0">
@@ -53,10 +57,11 @@ function ReelCard({ reel, index }: { reel: { id: string, views: string, src?: st
           <video
             ref={videoRef}
             src={reel.src}
+            autoPlay
             loop
             muted
             playsInline
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
           />
         ) : (
           <div className="w-full h-full flex flex-col justify-center items-center text-dust/20 bg-ink">
@@ -74,9 +79,10 @@ function ReelCard({ reel, index }: { reel: { id: string, views: string, src?: st
       </div>
 
       {/* Reel index */}
-      <div className="absolute top-4 right-4 z-20 font-mono text-[10px] text-dust/50">
+      <div className="absolute top-4 right-4 z-20 font-mono text-[10px] text-white/50 bg-ink/40 px-2 py-1 rounded-md backdrop-blur-sm">
         {String(index + 1).padStart(2, "0")}/06
       </div>
+      </motion.div>
     </motion.div>
   );
 }
